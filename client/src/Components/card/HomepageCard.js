@@ -9,8 +9,9 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import shell from "/Users/ulisesmartinez/Desktop/Mine/client/src/seashell.jpg";
+// import shell from "/Users/ulisesmartinez/Desktop/Mine/client/src/seashell.jpg";
 import Grid from "@material-ui/core/Grid";
+import shell from "../../seashell.jpg";
 
 const useStyles = makeStyles(theme => ({
   root: {
