@@ -1,4 +1,5 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -6,11 +7,23 @@ module.exports = {
     filename: "main.js",
     path: path.resolve(__dirname, "dist")
   },
+  devtool: "inline-source-map",
+  devServer: {
+    publicPath: "/dist/",
+    contentBase: path.join(__dirname, "dist"),
+    hot: true
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: "Production",
+      template: "./index.html"
+    })
+  ],
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: [/node_modules/, /.ejs$/],
+        exclude: /node_modules/,
         use: {
           loader: "babel-loader"
         }

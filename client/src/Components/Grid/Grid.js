@@ -8,6 +8,7 @@ import NavigationBar from "../NavigationBar/NavigationBar";
 import HomepageCard from "../card/HomepageCard";
 import LoginCard from "../LoginCard/LoginCard";
 import RegisterCard from "../RegisterCard/RegisterCard";
+import Sample from "../jsx/sample.jsx";
 import grey from "@material-ui/core/colors/grey";
 
 // css
@@ -98,7 +99,7 @@ export default function PageGrid() {
       <main>
         <div className="intro">
           {/* <div class="inner"></div> */}
-          <Route exact={true} path="/" component={HomepageCard} />
+          <Route exact={true} path="/" component={Sample} />
           <Route path="/login" component={LoginCard} />
           <Route path="/register" component={RegisterCard} />
           {/* <LoginCard class="inner" /> */}
