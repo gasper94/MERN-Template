@@ -13,18 +13,18 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import shell from "../../seashell.jpg";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 2000
+    maxWidth: 2000,
   },
   media: {
-    height: 470
+    height: 470,
   },
   paper: {
     // margin: "1%",
-    marginTop: -2
+    marginTop: -10,
     // marginBottom: "100%"
-  }
+  },
 }));
 
 export default function HomapageCard() {

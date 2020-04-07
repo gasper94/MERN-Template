@@ -13,11 +13,11 @@ import grey from "@material-ui/core/colors/grey";
 
 // css
 import "./grid.css";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(1),
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     boxShadow: "none",
     color: theme.palette.text.secondary,
     position: "sticky",
-    height: "7vh"
+    height: "7vh",
   },
   paper2: {
     // padding: theme.spacing(1),
@@ -36,12 +36,12 @@ const useStyles = makeStyles(theme => ({
     // borderRadius: 0,
     // backgroundColor: "red",
     // color: theme.palette.text.secondary,
-    height: "100vh"
+    height: "100vh",
   },
   toolbar: {
     backgroundColor: "blue",
-    height: "100%"
-  }
+    height: "100%",
+  },
 }));
 
 export default function PageGrid() {
@@ -99,9 +99,18 @@ export default function PageGrid() {
       <main>
         <div className="intro">
           {/* <div class="inner"></div> */}
-          <Route exact={true} path="/" component={Sample} />
-          <Route path="/login" component={LoginCard} />
-          <Route path="/register" component={RegisterCard} />
+          <Switch>
+            <Route exact={true} path="/">
+              <HomepageCard />
+            </Route>
+            <Route exact={true} path="/login">
+              <LoginCard />
+            </Route>
+            <Route exact={true} path="/register">
+              <RegisterCard />
+            </Route>
+          </Switch>
+
           {/* <LoginCard class="inner" /> */}
         </div>
       </main>

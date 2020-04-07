@@ -24,9 +24,9 @@ import SvgIcon from "@material-ui/core/SvgIcon";
 // Import css
 import "./NavigationBar.css";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   button: {
     fontSize: 12,
@@ -34,29 +34,29 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "#fafafa",
     margin: 10,
     "&:hover": {
-      backgroundColor: fade("#9e9e9e", 1)
+      backgroundColor: fade("#9e9e9e", 1),
     },
-    marginBottom: 10
+    marginBottom: 10,
   },
   toolbar: {
     // height: "100%"
-    backgroundColor: "#03a9f4"
+    backgroundColor: "#03a9f4",
     // borderBlockWidth: 20,
     // boxShadow: 10,
     // marginTop: 10,
     // textAlign: "center"
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
     display: "none",
     fontSize: "150%",
     [theme.breakpoints.up("sm")]: {
-      display: "block"
+      display: "block",
     },
     color: "#fafafa",
-    marginBottom: -10
+    marginBottom: -10,
     // marginInlineEnd: "30%"
   },
   search: {
@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade("#81d4fa", 0.5),
     "&:hover": {
-      backgroundColor: fade("#81d4fa", 0.2)
+      backgroundColor: fade("#81d4fa", 0.2),
     },
     marginRight: theme.spacing(2),
     marginLeft: 1,
@@ -72,9 +72,9 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(4),
       width: "auto",
-      marginBottom: -15
+      marginBottom: -15,
     },
-    marginBottom: -8
+    marginBottom: -8,
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -83,11 +83,11 @@ const useStyles = makeStyles(theme => ({
     pointerEvents: "none",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   inputRoot: {
     marginBottom: -15,
-    color: "#fafafa"
+    color: "#fafafa",
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -96,21 +96,21 @@ const useStyles = makeStyles(theme => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
-      width: "20ch"
-    }
+      width: "20ch",
+    },
   },
   sectionDesktop: {
     display: "none",
     [theme.breakpoints.up("md")]: {
-      display: "flex"
-    }
+      display: "flex",
+    },
   },
   sectionMobile: {
     marginBottom: -10,
     display: "flex",
     [theme.breakpoints.up("md")]: {
-      display: "none"
-    }
+      display: "none",
+    },
   },
   mobileTitle: {
     fontSize: "150%",
@@ -122,13 +122,13 @@ const useStyles = makeStyles(theme => ({
     marginBottom: -10,
     display: "flex",
     [theme.breakpoints.up("sm")]: {
-      display: "none"
-    }
+      display: "none",
+    },
   },
   homebutton: {
     fontSize: "140%",
-    marginBottom: -3
-  }
+    marginBottom: -3,
+  },
 }));
 
 function HomeIcon(props) {
@@ -146,7 +146,7 @@ export default function HomapageCard() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleProfileMenuOpen = event => {
+  const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -159,7 +159,7 @@ export default function HomapageCard() {
     handleMobileMenuClose();
   };
 
-  const handleMobileMenuOpen = event => {
+  const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
@@ -245,7 +245,7 @@ export default function HomapageCard() {
           noWrap
           href={"register"}
         >
-          Mern Skeletons
+          Mern Skeletonsss
         </Typography>
         {/* <div className={classes.search}>
           <div className={classes.searchIcon}>
