@@ -15,6 +15,8 @@ import Container from "@material-ui/core/Container";
 
 import { useForm } from "react-hook-form";
 import { signin } from "../../../auth/api-auth";
+import auth from "../../../auth/auth-helper";
+// import Popup from "../pop-up/Pop-up";
 
 function Copyright() {
   return (
@@ -84,10 +86,11 @@ export default function SignIn() {
         console.log(data.token);
         console.log(data.user.email);
         console.log(data.user._id);
-        // auth.authenticate(data, () => {
-        //   // this.setState({ redirectToReferrer: true });
-        //   console.log("yes");
-        // });
+        auth.authenticate(data, () => {
+          console.log(
+            "jwt has been saved, implement redirect and sessions next"
+          );
+        });
       }
     });
   };
@@ -137,10 +140,10 @@ export default function SignIn() {
           />
           <Button
             style={{
-              height: 50,
-              borderRadius: 0,
+              height: 40,
+              borderRadius: 5,
               backgroundColor: "#03a9f4",
-              padding: "10px 36px",
+              // padding: "10px 36px",
               fontSize: "18px",
             }}
             variant="contained"

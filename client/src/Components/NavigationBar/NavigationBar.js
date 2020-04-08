@@ -245,7 +245,7 @@ export default function HomapageCard() {
           noWrap
           href={"register"}
         >
-          Mern Skeletonsssssss
+          Mern Skeleton
         </Typography>
         {/* <div className={classes.search}>
           <div className={classes.searchIcon}>
