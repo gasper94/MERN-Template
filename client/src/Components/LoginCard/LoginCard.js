@@ -13,6 +13,9 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
+import { useForm } from "react-hook-form";
+import { signin } from "../../../auth/api-auth";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -45,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
   button: {
+    width: 300,
     backgroundColor: "#03a9f4",
     color: "white",
   },
@@ -54,12 +58,39 @@ const useStyles = makeStyles((theme) => ({
 
 // };
 
-const handleSubmit = () => {
-  console.log("he");
-};
+// const handleSubmit = () => {
+//   console.log("he");
+// };
 
 export default function SignIn() {
   const classes = useStyles();
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data) => {
+    const user = {
+      email: data.email || undefined,
+      password: data.password || undefined,
+    };
+
+    console.log("info");
+    console.log(user);
+
+    signin(user).then((data) => {
+      if (data.error) {
+        // this.setState({ error: data.error });
+        console.log(data.error);
+      } else {
+        console.log("logged in!!");
+        console.log(data.token);
+        console.log(data.user.email);
+        console.log(data.user._id);
+        // auth.authenticate(data, () => {
+        //   // this.setState({ redirectToReferrer: true });
+        //   console.log("yes");
+        // });
+      }
+    });
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -71,7 +102,11 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        <form
+          className={classes.form}
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <TextField
             variant="outlined"
             margin="normal"
@@ -82,6 +117,7 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            inputRef={register({ required: true })}
           />
           <TextField
             variant="outlined"
@@ -93,12 +129,21 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            inputRef={register({ required: true })}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
           <Button
+            style={{
+              height: 50,
+              borderRadius: 0,
+              backgroundColor: "#03a9f4",
+              padding: "10px 36px",
+              fontSize: "18px",
+            }}
+            variant="contained"
             type="submit"
             fullWidth
             variant="contained"

@@ -6,18 +6,17 @@ module.exports = {
   output: {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
-    publicPath: "/",
   },
   devtool: "inline-source-map",
   devServer: {
-    publicPath: "/dist/",
-    contentBase: path.join(__dirname, "dist"),
+    contentBase: "dist",
+    watchContentBase: true,
     hot: true,
     historyApiFallback: true, //https://tylermcginnis.com/react-router-cannot-get-url-refresh/
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Production",
+      title: "production",
       template: "./index.html",
     }),
   ],
@@ -39,7 +38,7 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: ["file-loader"],
+        loader: "file-loader",
       },
     ],
   },

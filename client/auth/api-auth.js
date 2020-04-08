@@ -1,27 +1,48 @@
-const signin = user => {
-  return fetch("/auth/signin/", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-    credentials: "include",
-    body: JSON.stringify(user)
+// import axios from "axios";
+
+const signin = (user) => {
+  // return console.log("hey sexy", user);
+  // axios
+  //   .post("/auth/signin", user)
+  //   .then(function (response) {
+  //     console.log(response);
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
+
+  return fetch("http://localhost:8080/auth/signin", {
+    method: "post",
+    body: JSON.stringify(user),
+    headers: { "Content-Type": "application/json" },
   })
-    .then(response => {
-      return response.json();
+    .then((res) => res.json())
+    .then((json) => {
+      return json;
     })
-    .catch(err => console.log(err));
+    .catch((err) => {
+      console.log(err);
+    });
+
+  // fetch("http://localhost:8080/auth/signin", {
+  //   method: "post",
+  //   headers: { "Content-Type": "application/json" },
+  //   body: JSON.stringify(user),
+  // })
+  //   .then((response) => {
+  //     return response.json();
+  //   })
+  //   .catch((err) => console.log(err));
 };
 
 const signout = () => {
   return fetch("/auth/signout/", {
-    method: "GET"
+    method: "GET",
   })
-    .then(response => {
+    .then((response) => {
       return response.json();
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 };
 
 export { signin, signout };
