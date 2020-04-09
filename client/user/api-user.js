@@ -1,26 +1,38 @@
-const create = user => {
-  return fetch("/api/users/", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(user)
+const create = (user) => {
+  // return fetch("http://localhost:8080/api/users/", {
+  //   method: "POST",
+  //   headers: {
+  //     Accept: "application/json",
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify(user),
+  // })
+  //   .then((response) => {
+  //     return response.json();
+  //   })
+  //   .catch((err) => console.log(err));
+  return fetch("http://localhost:8080/api/users/", {
+    method: "post",
+    body: JSON.stringify(user),
+    headers: { "Content-Type": "application/json" },
   })
-    .then(response => {
-      return response.json();
+    .then((res) => res.json())
+    .then((json) => {
+      return json;
     })
-    .catch(err => console.log(err));
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const list = () => {
   return fetch("/api/users/", {
-    method: "GET"
+    method: "GET",
   })
-    .then(response => {
+    .then((response) => {
       return response.json();
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 };
 
 const read = (params, credentials) => {
@@ -29,13 +41,13 @@ const read = (params, credentials) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: "Bearer " + credentials.t
-    }
+      Authorization: "Bearer " + credentials.t,
+    },
   })
-    .then(response => {
+    .then((response) => {
       return response.json();
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 };
 
 const update = (params, credentials, user) => {
@@ -44,14 +56,14 @@ const update = (params, credentials, user) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: "Bearer " + credentials.t
+      Authorization: "Bearer " + credentials.t,
     },
-    body: JSON.stringify(user)
+    body: JSON.stringify(user),
   })
-    .then(response => {
+    .then((response) => {
       return response.json();
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 };
 
 const remove = (params, credentials) => {
@@ -60,13 +72,13 @@ const remove = (params, credentials) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: "Bearer " + credentials.t
-    }
+      Authorization: "Bearer " + credentials.t,
+    },
   })
-    .then(response => {
+    .then((response) => {
       return response.json();
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 };
 
 export { create, list, read, update, remove };

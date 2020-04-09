@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
   button: {
-    width: 300,
+    margin: theme.spacing(3, 0, 2),
     backgroundColor: "#03a9f4",
     color: "white",
   },
@@ -139,18 +139,11 @@ export default function SignIn() {
             label="Remember me"
           />
           <Button
-            style={{
-              height: 40,
-              borderRadius: 5,
-              backgroundColor: "#03a9f4",
-              // padding: "10px 36px",
-              fontSize: "18px",
-            }}
-            variant="contained"
             type="submit"
             fullWidth
             variant="contained"
             className={classes.button}
+            // className={classes.submit}
           >
             Sign In
           </Button>
