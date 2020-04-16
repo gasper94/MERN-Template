@@ -17,10 +17,10 @@ const auth = {
     if (typeof window !== "undefined") sessionStorage.removeItem("jwt");
     cb();
     //optional
-    signout().then(data => {
-      document.cookie = "t=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    });
-  }
+    // signout().then(data => {
+    //   document.cookie = "t=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    // });
+  },
 };
 
 export default auth;

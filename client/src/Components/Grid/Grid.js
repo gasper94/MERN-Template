@@ -8,6 +8,8 @@ import NavigationBar from "../NavigationBar/NavigationBar";
 import HomepageCard from "../card/HomepageCard";
 import LoginCard from "../LoginCard/LoginCard";
 import RegisterCard from "../RegisterCard/RegisterCard";
+import PrivateRouter from "../../../auth/PrivateRouter";
+import Dashboard from "../Dashboard/Dashboard";
 import Sample from "../jsx/sample.jsx";
 import grey from "@material-ui/core/colors/grey";
 
@@ -103,12 +105,19 @@ export default function PageGrid() {
             <Route exact={true} path="/">
               <HomepageCard />
             </Route>
-            <Route exact={true} path="/login">
+            <Route path="/login">
               <LoginCard />
             </Route>
-            <Route exact={true} path="/register">
+            <Route path="/register">
               <RegisterCard />
             </Route>
+            {/* <Route path="/dashboard">
+              <Dashboard />
+            </Route> */}
+
+            <PrivateRouter path="/dashboard">
+              <Dashboard />
+            </PrivateRouter>
           </Switch>
 
           {/* <LoginCard class="inner" /> */}

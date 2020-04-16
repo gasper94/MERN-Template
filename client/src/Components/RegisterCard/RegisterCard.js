@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -15,6 +16,15 @@ import Container from "@material-ui/core/Container";
 // import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { create } from "../../../user/api-user";
+import Login from "../LoginCard/LoginCard";
+
+// Dialog
+
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 function Copyright() {
   return (
@@ -59,6 +69,20 @@ const useStyles = makeStyles((theme) => ({
 // };
 
 export default function SignUp() {
+  const [open, setOpen] = React.useState(false);
+  const [redirectTo, setRedirectTo] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleRedirectTo = () => {
+    setRedirectTo(true);
+  };
+
   const classes = useStyles();
   const { register, handleSubmit } = useForm();
 
@@ -68,8 +92,18 @@ export default function SignUp() {
 
     console.log(user);
 
+    // create(user).then((data) => {
+    //   console.log("heyyy");
+    //   console.log(data);
+    // });
     create(user).then((data) => {
-      console.log(data);
+      if (data.error) {
+        // this.setState({error: data.error})
+        console.log("error");
+      } else {
+        setOpen(true);
+        console.log("sucess");
+      }
     });
 
     // create({ user }).then((data) => {
@@ -93,6 +127,10 @@ export default function SignUp() {
     // let jwt = JSON.parse(sessionStorage.getItem("jwt"));
     // console.log(jwt.token);
   };
+
+  if (redirectTo) {
+    return <Redirect to={"/login"} />;
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -172,13 +210,14 @@ export default function SignUp() {
             fullWidth
             variant="contained"
             className={classes.button}
+            // onClick={handleClickOpen}
             // className={classes.submit}
           >
             Sign Up
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/login" variant="body2">
+              <Link href="/#/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -188,6 +227,24 @@ export default function SignUp() {
       <Box mt={5}>
         <Copyright />
       </Box>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Welcome!"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            New account sucessfully created.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleRedirectTo} color="primary" autoFocus>
+            Log in
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }

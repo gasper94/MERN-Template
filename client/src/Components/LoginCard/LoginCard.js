@@ -15,8 +15,12 @@ import Container from "@material-ui/core/Container";
 
 import { useForm } from "react-hook-form";
 import { signin } from "../../../auth/api-auth";
-import auth from "../../../auth/auth-helper";
+// import auth from "../../../auth/auth-helper";
+import { Redirect } from "react-router-dom";
 // import Popup from "../pop-up/Pop-up";
+
+// Auth
+import auth from "../../../auth/auth-helper";
 
 function Copyright() {
   return (
@@ -67,6 +71,17 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
   const classes = useStyles();
   const { register, handleSubmit } = useForm();
+  const [redirectTo, setRedirectTo] = React.useState(false);
+
+  // const {classes} = this.props
+  // const {from} = this.props.location.state || {
+  //   from: {pathname: '/'}
+  // }
+  // const { redirectTo} = this.state
+  // if(redirectTo){
+  //   return(<Redirect to={from}/>
+  //     return(...)
+  // }
 
   const onSubmit = (data) => {
     const user = {
@@ -87,13 +102,25 @@ export default function SignIn() {
         console.log(data.user.email);
         console.log(data.user._id);
         auth.authenticate(data, () => {
-          console.log(
-            "jwt has been saved, implement redirect and sessions next"
-          );
+          setRedirectTo(true);
         });
       }
     });
   };
+
+  if (redirectTo) {
+    return <Redirect to={"/dashboard"} />;
+  }
+
+  // let history = useHistory();
+  // let location = useLocation();
+
+  // let { from } = location.state || { from: { pathname: "/" } };
+  // let login = () => {
+  //   uth.authenticate(() => {
+  //     history.replace(from);
+  //   });
+  // };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -154,7 +181,7 @@ export default function SignIn() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="/register" variant="body2">
+              <Link href="/#/register" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

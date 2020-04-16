@@ -24,6 +24,9 @@ import SvgIcon from "@material-ui/core/SvgIcon";
 // Import css
 import "./NavigationBar.css";
 
+// Components
+import AuthButton from "../Menu-Buttons/Menu-Buttons";
+
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -291,12 +294,7 @@ export default function HomapageCard() {
           {/* <Link to={"/"}>
             <Button className={classes.button}>Home</Button>
           </Link> */}
-          <Link to={"/register"}>
-            <Button className={classes.button}>Register</Button>
-          </Link>
-          <Link to={"/login"}>
-            <Button className={classes.button}>Log in</Button>
-          </Link>
+          <AuthButton />
         </div>
         <Typography className={classes.mobileTitle} variant="h6" noWrap>
           Mern Skeleton

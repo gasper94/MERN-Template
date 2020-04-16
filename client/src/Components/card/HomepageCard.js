@@ -11,7 +11,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 // import shell from "/Users/ulisesmartinez/Desktop/Mine/client/src/seashell.jpg";
 import Grid from "@material-ui/core/Grid";
-import shell from "../../seashell.jpg";
+import shell from "../../MERN.png";
 // import shell from "./seashell.jpg";
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     // margin: "1%",
-    marginTop: -10,
+    marginTop: 5,
     // marginBottom: "100%"
   },
 }));
@@ -50,11 +50,11 @@ export default function HomapageCard() {
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                Lizard
+                MERN
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-                Lizards are a widespread group of squamate reptiles, with over
-                6,000 species, ranging across all continents except Antarctica
+                MERN Stack is a Javascript Stack that is used for easier and
+                faster deployment of full-stack web applications.
               </Typography>
             </CardContent>
           </CardActionArea>
