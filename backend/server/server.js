@@ -2,17 +2,71 @@ import confix from "../config/config";
 import mongoose from "mongoose";
 import app from "./express";
 
+// Uploading image
+import path from "path";
+import crypto from "crypto";
+import multer from "multer";
+import GridFsStorage from "multer-gridfs-storage";
+import Grid from "gridfs-stream";
+
 mongoose
   .connect(confix.mongoUri, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .then(() => console.log("MongoDB Connected..."))
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
 const Simulation = require("../models/Simulation");
+const Sample = require("../models/Sample");
+const Rack = require("../models/Rack");
+
+/* Uploading Files */
+
+// Mongo URI
+const mongoURIs =
+  "mongodb+srv://writer:writer1@cluster0-wlcbv.mongodb.net/test";
+
+// connection
+const conn = mongoose.createConnection(mongoURIs, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+// init gfs
+let gfs;
+conn.once("open", () => {
+  // init stream
+  gfs = new mongoose.mongo.GridFSBucket(conn.db, {
+    bucketName: "uploads",
+  });
+});
+
+// Storage
+const storage = new GridFsStorage({
+  url: mongoURIs,
+  file: (req, file) => {
+    return new Promise((resolve, reject) => {
+      crypto.randomBytes(16, (err, buf) => {
+        if (err) {
+          return reject(err);
+        }
+        const filename = buf.toString("hex") + path.extname(file.originalname);
+        const fileInfo = {
+          filename: filename,
+          bucketName: "uploads",
+        };
+        resolve(fileInfo);
+      });
+    });
+  },
+});
+
+const upload = multer({
+  storage,
+});
 
 /* CREATE */
 // const newSimulation = new Simulation({
@@ -45,17 +99,17 @@ const Simulation = require("../models/Simulation");
 //   { environment: "environment-w" }
 // ).then(console.log("Item deleted"));
 
-/* ENDPOINTS */
+/* Simulation ENDPOINTS */
 
 // GET
-app.get("/", (req, res) => {
+app.get("/Simulation/", (req, res) => {
   Simulation.find()
     .sort({ date: -1 })
-    .then(items => console.log(res.json(items)));
+    .then((items) => console.log(res.json(items)));
 });
 
 // POST
-app.post("/", (req, res) => {
+app.post("/Simulation/", (req, res) => {
   const newSimulation = new Simulation({
     name: req.body.name,
     id: req.body.id,
@@ -63,23 +117,127 @@ app.post("/", (req, res) => {
     userPersona: req.body.userPersona,
     racks: req.body.racks,
     sample: req.body.sample,
-    analysisFiles: req.body.analysisFiles
+    analysisFiles: req.body.analysisFiles,
   });
-  newSimulation.save().then(item => res.json(item));
+  newSimulation.save().then((item) => res.json(item));
 });
 
 // DELETE
-app.delete("/:id", (req, res) => {
+app.delete("/Simulation/:id", (req, res) => {
   Simulation.findOneAndDelete({ _id: req.params.id })
     .then(() => res.json({ success: true }))
-    .catch(err => res.status(404).json({ success: false }));
+    .catch((err) => res.status(404).json({ success: false }));
 });
 
 // UPDATE
-app.put("/:id", (req, res) => {
+app.put("/Simulation/:id", (req, res) => {
   Simulation.findOneAndUpdate({ _id: req.params.id }, req.body)
     .then(() => res.json({ success: true }))
-    .catch(err => res.status(404).json({ success: false }));
+    .catch((err) => res.status(404).json({ success: false }));
+});
+
+/* RACK ENDPOINTS */
+
+// GET
+app.get("/Rack/", (req, res) => {
+  Simulation.find()
+    .sort({ date: -1 })
+    .then((items) => console.log(res.json(items)));
+});
+
+// POST
+app.post("/Rack/", (req, res) => {
+  const newSimulation = new Simulation({
+    name: req.body.name,
+    id: req.body.id,
+    environment: req.body.environment,
+    userPersona: req.body.userPersona,
+    racks: req.body.racks,
+    sample: req.body.sample,
+    analysisFiles: req.body.analysisFiles,
+  });
+  newSimulation.save().then((item) => res.json(item));
+});
+
+// DELETE
+app.delete("/Rack/:id", (req, res) => {
+  Simulation.findOneAndDelete({ _id: req.params.id })
+    .then(() => res.json({ success: true }))
+    .catch((err) => res.status(404).json({ success: false }));
+});
+
+// UPDATE
+app.put("/Rack/:id", (req, res) => {
+  Simulation.findOneAndUpdate({ _id: req.params.id }, req.body)
+    .then(() => res.json({ success: true }))
+    .catch((err) => res.status(404).json({ success: false }));
+});
+
+/* Sample ENDPOINTS */
+
+// GET
+app.get("/Sample/", (req, res) => {
+  Simulation.find()
+    .sort({ date: -1 })
+    .then((items) => console.log(res.json(items)));
+});
+
+// POST
+app.post("/Sample/", (req, res) => {
+  const newSimulation = new Simulation({
+    name: req.body.name,
+    id: req.body.id,
+    environment: req.body.environment,
+    userPersona: req.body.userPersona,
+    racks: req.body.racks,
+    sample: req.body.sample,
+    analysisFiles: req.body.analysisFiles,
+  });
+  newSimulation.save().then((item) => res.json(item));
+});
+
+// DELETE
+app.delete("/Sample/:id", (req, res) => {
+  Simulation.findOneAndDelete({ _id: req.params.id })
+    .then(() => res.json({ success: true }))
+    .catch((err) => res.status(404).json({ success: false }));
+});
+
+// UPDATE
+app.put("/Sample/:id", (req, res) => {
+  Simulation.findOneAndUpdate({ _id: req.params.id }, req.body)
+    .then(() => res.json({ success: true }))
+    .catch((err) => res.status(404).json({ success: false }));
+});
+
+/******************** File Uploading **********************/
+
+app.get("/", (req, res) => {
+  gfs.files.find().toArray((err, files) => {
+    // Check if files
+    if (!files || files.length === 0) {
+      res.render("index", { files: false });
+    } else {
+      files.map((file) => {
+        if (
+          file.contentType === "image/jpeg" ||
+          file.contentType === "image/png"
+        ) {
+          file.isImage = true;
+        } else {
+          file.isImage = false;
+        }
+      });
+      res.render("index", { files: files });
+    }
+  });
+});
+
+// @route POST /upload
+// @desc  Uploads file to DB
+app.post("/upload", upload.single("file"), (req, res) => {
+  // res.json({ file: req.file });
+  res.redirect("/");
 });
 
 app.listen(confix.port, () =>
