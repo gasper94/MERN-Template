@@ -1,4 +1,13 @@
-# SimulatorClearLabs
+# MERN Stack template
+- MongoDB
+- Express
+- React
+- NodeJs
+
+# Functionality
+- Login
+- register
+- password/username reset
+- routing
 
 
-# Most updated branch is front-end branch
